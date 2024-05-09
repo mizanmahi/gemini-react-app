@@ -3,7 +3,7 @@ import Base64 from 'base64-js';
 import MarkdownIt from 'markdown-it';
 
 // Your API key for Gemini API
-const API_KEY = 'TODO';
+const API_KEY = import.meta.env.VITE_GEMINI_API_KEY;
 
 const fetchImageAndGenerateContent = async (imageUrl, prompt) => {
   const imageBase64 = await fetch(imageUrl)

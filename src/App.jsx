@@ -2,11 +2,14 @@ import { useState } from 'react';
 import './App.css';
 import { fetchImageAndGenerateContent } from './helpers/generator';
 
+// Import the images from the assets folder
+import image1 from './assets/image1.jpg';
+import image2 from './assets/image2.jpg';
+import image3 from './assets/image3.jpg';
+
 const App = () => {
-   const [chosenImage, setChosenImage] = useState('/baked_goods_1.jpg');
-   const [prompt, setPrompt] = useState(
-      'Provide a recipe for the baked goods in the image'
-   );
+   const [chosenImage, setChosenImage] = useState(image1);
+   const [prompt, setPrompt] = useState('How can I learn programming?');
    const [output, setOutput] = useState('');
 
    const handleSubmit = async (e) => {
@@ -41,31 +44,31 @@ const App = () => {
                   <input
                      type='radio'
                      name='chosen-image'
-                     value='/baked_goods_1.jpg'
-                     checked={chosenImage === '/baked_goods_1.jpg'}
+                     value={image1}
+                     checked={chosenImage === image1}
                      onChange={handleImageChange}
                   />
-                  <img src='/baked_goods_1.jpg' alt='Baked Goods 1' />
+                  <img src={image1} alt='image1' />
                </label>
                <label className='image-choice'>
                   <input
                      type='radio'
                      name='chosen-image'
-                     value='/baked_goods_2.jpg'
-                     checked={chosenImage === '/baked_goods_2.jpg'}
+                     value={image2}
+                     checked={chosenImage === image2}
                      onChange={handleImageChange}
                   />
-                  <img src='/baked_goods_2.jpg' alt='Baked Goods 2' />
+                  <img src={image2} alt='image2' />
                </label>
                <label className='image-choice'>
                   <input
                      type='radio'
                      name='chosen-image'
-                     value='/baked_goods_3.jpg'
-                     checked={chosenImage === '/baked_goods_3.jpg'}
+                     value={image3}
+                     checked={chosenImage === image3}
                      onChange={handleImageChange}
                   />
-                  <img src='/baked_goods_3.jpg' alt='Baked Goods 3' />
+                  <img src={image3} alt='image3' />
                </label>
             </div>
             <div className='prompt-box'>
