@@ -29,11 +29,17 @@ jobs:
          - name: Upload artifacts
            uses: actions/upload-artifact@v3 # action to upload the artifacts or the produced result fo a job
            with:
-              name: Upload dist file
+              name: dist file
               path: dist # path to file of folter to upload
    deploy:
       needs: build
       runs-on: ubuntu-latest
       steps:
+         - name: Download artifacts
+           uses: actions/download-artifact@v3 # action to download the artifacts or the produced result of a prev job
+           with:
+              name: dist file # should be the same step name of the upload
+         - name: Output the artifact file list
+           run: ls
          - name: Deploy
            run: echo "Deploying..."
