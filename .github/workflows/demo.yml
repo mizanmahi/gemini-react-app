@@ -47,6 +47,6 @@ jobs:
          - name: Output the artifact file list
            run: ls
          - name: Show the artifact file name
-           run: echo ${{ needs.build.outputs.artifact-name }}
+           run: echo "${{ needs.build.outputs.artifact-name }}"
          - name: Deploy
            run: echo "Deploying..."
