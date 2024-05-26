@@ -14,7 +14,7 @@ jobs:
          - name: Cache dependency # caching dependency
            uses: actions/cache@v3
            with:
-              path: ~/.npm
+              path: ~/.cache/yarn
               key: deps-node-packeges-${{ hashFiles('**/yarn.lock') }}
          - name: Lint code
            run: yarn lint
@@ -33,8 +33,8 @@ jobs:
          - name: Cache dependency # need to repeat the caching step in every job where needed
            uses: actions/cache@v3
            with:
-              path: ~/.npm
-              key: deps-node-packeges-${{ hashFiles('**/package-lock.json') }}
+              path: ~/.cache/yarn
+              key: deps-node-packeges-${{ hashFiles('**/yarn.lock') }}
          - name: Build website
            run: yarn build
          - name: Upload artifacts
