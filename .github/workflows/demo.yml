@@ -9,13 +9,13 @@ jobs:
       steps:
          - name: Get code
            uses: actions/checkout@v3
-         - name: Install dependencies
-           run: yarn install --frozen-lockfile
          - name: Cache dependency # caching dependency
            uses: actions/cache@v3
            with:
               path: ~/.cache/yarn
               key: deps-node-packeges-${{ hashFiles('**/yarn.lock') }}
+         - name: Install dependencies
+           run: yarn install --frozen-lockfile
          - name: Lint code
            run: yarn lint
          - name: Test code
