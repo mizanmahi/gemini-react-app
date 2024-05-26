@@ -15,7 +15,7 @@ jobs:
            uses: actions/cache@v3
            with:
               path: ~/.npm
-              key: deps-node-packeges-${{ hashFiles('**/package-lock.json') }}
+              key: deps-node-packeges-${{ hashFiles('**/yarn.lock') }}
          - name: Lint code
            run: yarn lint
          - name: Test code
