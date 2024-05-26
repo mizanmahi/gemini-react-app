@@ -20,7 +20,7 @@ jobs:
       needs: test
       runs-on: ubuntu-latest
       outputs:
-         artifact-name: ${{ steps.set-output.outputs.artifact-name }}
+         script-file-name: ${{ steps.publish.outputs.js-file-name }}
       steps:
          - name: Get code
            uses: actions/checkout@v3
@@ -33,9 +33,9 @@ jobs:
            with:
               name: dist file
               path: dist # path to file of folter to upload
-         - name: Set output
-           id: set-output
-           run: echo "artifact-name=dist-file" >> $GITHUB_ENV
+         - name: Publish Js file name
+           id: publish # giving an identifier to this step
+           run: find dist/assets/*.js -type f -execdir echo 'js-file-name={}' >> $GITHUB_OUTPUT ';'
    deploy:
       needs: build
       runs-on: ubuntu-latest
@@ -46,7 +46,7 @@ jobs:
               name: dist file # should be the same step name of the upload
          - name: Output the artifact file list
            run: ls
-         - name: Show the artifact file name
-           run: echo "${{ needs.build.outputs.artifact-name }}"
+         - name: Show file
+           run: echo "${{ needs.build.outputs.script-file-name }}"
          - name: Deploy
            run: echo "Deploying..."
