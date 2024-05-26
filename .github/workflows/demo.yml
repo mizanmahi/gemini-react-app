@@ -28,13 +28,14 @@ jobs:
       steps:
          - name: Get code
            uses: actions/checkout@v3
-         - name: Install dependencies
-           run: yarn install --frozen-lockfile
+
          - name: Cache dependency # need to repeat the caching step in every job where needed
            uses: actions/cache@v3
            with:
               path: ~/.cache/yarn
               key: deps-node-packeges-${{ hashFiles('**/yarn.lock') }}
+         - name: Install dependencies
+           run: yarn install --frozen-lockfile
          - name: Build website
            run: yarn build
          - name: Upload artifacts
