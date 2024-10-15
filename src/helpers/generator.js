@@ -3,7 +3,7 @@ import Base64 from 'base64-js';
 import MarkdownIt from 'markdown-it';
 
 // Your API key for Gemini API
-const API_KEY = import.meta.env.VITE_GEMINI_API_KEY;
+const API_KEY = import.meta.env.VITE_GEMINI_API_KEY ;
 
 const fetchImageAndGenerateContent = async (imageUrl, prompt) => {
   const imageBase64 = await fetch(imageUrl)
@@ -24,7 +24,7 @@ const fetchImageAndGenerateContent = async (imageUrl, prompt) => {
 
   const genAI = new GoogleGenerativeAI(API_KEY);
   const model = genAI.getGenerativeModel({
-    model: 'gemini-pro-vision',
+    model: 'gemini-1.5-flash',
     safetySettings: [
       {
         category: HarmCategory.HARM_CATEGORY_HARASSMENT,

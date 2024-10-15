@@ -84,7 +84,10 @@ const App = () => {
                <button type='submit'>Go</button>
             </div>
          </form>
-         <p className='output'>{output}</p>
+         <div
+            dangerouslySetInnerHTML={{ __html: output }}
+            className='output'
+         ></div>
       </main>
    );
 };
