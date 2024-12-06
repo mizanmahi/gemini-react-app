@@ -1,62 +1,35 @@
 name: Deploy website
-on:
-   push:
-      branches:
-         - main
+on: push
+
 jobs:
    test:
       runs-on: ubuntu-latest
       steps:
          - name: Get code
            uses: actions/checkout@v3
-         - name: Cache dependency # caching dependency
-           uses: actions/cache@v3
-           with:
-              path: ~/.cache/yarn
-              key: deps-node-packeges-${{ hashFiles('**/yarn.lock') }}
+
          - name: Install dependencies
            run: yarn install --frozen-lockfile
+
          - name: Lint code
            run: yarn lint
+
          - name: Test code
            run: yarn test
    build:
-      needs: test
       runs-on: ubuntu-latest
-      outputs:
-         script-file-name: ${{ steps.publish.outputs.js-file-name }}
+
       steps:
          - name: Get code
            uses: actions/checkout@v3
 
-         - name: Cache dependency # need to repeat the caching step in every job where needed
-           uses: actions/cache@v3
-           with:
-              path: ~/.cache/yarn
-              key: deps-node-packeges-${{ hashFiles('**/yarn.lock') }}
          - name: Install dependencies
            run: yarn install --frozen-lockfile
+
          - name: Build website
            run: yarn build
-         - name: Upload artifacts
-           uses: actions/upload-artifact@v3 # action to upload the artifacts or the produced result fo a job
-           with:
-              name: dist file
-              path: dist # path to file of folter to upload
-         - name: Publish Js file name
-           id: publish # giving an identifier to this step
-           run: find dist/assets/*.js -type f -execdir echo 'js-file-name={}' >> $GITHUB_OUTPUT ';'
    deploy:
-      needs: build
       runs-on: ubuntu-latest
       steps:
-         - name: Download artifacts
-           uses: actions/download-artifact@v3 # action to download the artifacts or the produced result of a prev job
-           with:
-              name: dist file # should be the same step name of the upload
-         - name: Output the artifact file list
-           run: ls
-         - name: Show file
-           run: echo "${{ needs.build.outputs.script-file-name }}"
          - name: Deploy
            run: echo "Deploying..."
